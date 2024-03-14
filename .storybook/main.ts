@@ -13,6 +13,8 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-themes"
   ],
+  staticDirs: ['../stories/assets']
+  ,
   framework: {
     name: "@storybook/nextjs",
     options: {
