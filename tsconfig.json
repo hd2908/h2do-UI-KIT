@@ -10,5 +10,12 @@
     "esModuleInterop": true
   },
   "include": ["**/*.tsx", "**/*.ts", "@types", "../src/index.ts"], // 컴파일에 포함할 파일
-  "exclude": ["node_modules", "build", "dist", "lib", "rollup.config.js"] // 컴파일에서 제외할 파일
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "lib",
+    "rollup.config.js",
+    "src/stories/**"
+  ] // 컴파일에서 제외할 파일
 }

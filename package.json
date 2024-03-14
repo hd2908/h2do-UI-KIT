@@ -13,23 +13,43 @@
     "watch": "rollup -cw",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "npm run exam & npm run watch",
-    "exam": "cd ../example && npm start"
+    "exam": "cd ../example && npm start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/preset-typescript": "^7.23.3",
+    "@chromatic-com/storybook": "^1.2.19",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/addon-onboarding": "^8.0.0",
+    "@storybook/addon-themes": "^8.0.0",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/nextjs": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/test": "^8.0.0",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "babel-preset-react-app": "^10.0.1",
+    "classnames": "^2.5.1",
+    "eslint-plugin-storybook": "^0.8.0",
     "node-sass": "^9.0.0",
+    "postcss": "^8.4.35",
     "rollup": "^4.13.0",
+    "sass": "^1.72.0",
+    "storybook": "^8.0.0",
+    "style-inject": "^0.3.0",
     "tslib": "^2.6.2",
     "typescript": "^5.4.2"
   },
   "peerDependency": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
-  }
+    "react-dom": "^16.2.0",
+    "storybook": "8.0.0"
+  },
+  "dependencies": {}
 }
