@@ -6,6 +6,7 @@ interface ButtonProps {
   backgroundColor?: string;
   size?: "small" | "medium" | "large";
   label?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 const getSize = (size: ButtonProps["size"]) => {
@@ -14,28 +15,38 @@ const getSize = (size: ButtonProps["size"]) => {
     medium: { padding: "0.5em 1.4em", fontSize: "1.2rem" },
     large: { padding: "0.75em 1.8em", fontSize: "1.4rem" },
   };
-  return sizes[size || "medium"]; // 기본값은 "medium"
+  return sizes[size || "medium"];
 };
 
-const getColor = (primary: ButtonProps["primary"]) => {
+const getColor = (
+  primary: ButtonProps["primary"],
+  backgroundColor: ButtonProps["backgroundColor"]
+) => {
   const colors = {
     primary: { color: Colors.white, background: Colors.primary },
     secondary: { color: Colors.text, background: Colors.secondary },
+    backgroundColor: { color: Colors.white, background: backgroundColor },
   };
-  return primary ? colors.primary : colors.secondary;
+  console.log(backgroundColor);
+  return backgroundColor
+    ? colors.backgroundColor
+    : primary
+      ? colors.primary
+      : colors.secondary;
 };
 
 const Btn = styled.button<ButtonProps>`
+  cursor: pointer;
   ${(props) => {
-    const { color, background } = getColor(props.primary);
+    const { color, background } = getColor(
+      props.primary,
+      props.backgroundColor
+    );
     return css`
       color: ${color};
       background-color: ${background};
     `;
   }}
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
   ${(props) => {
     const { padding, fontSize } = getSize(props.size);
     return css`
@@ -43,21 +54,40 @@ const Btn = styled.button<ButtonProps>`
       font-size: ${fontSize};
     `;
   }};
+  ${(props) => {
+    return (
+      props.disabled &&
+      css`
+        opacity: 0.5;
+        cursor: default;
+      `
+    );
+  }};
+  border-radius: 4px;
+  border: none;
 `;
 
 /**
  * Primary UI component for user interaction
  */
 export const Button = ({
-  primary,
-  size,
+  primary = true,
+  size = "medium",
   backgroundColor,
-  label,
+  label = "Button",
+  disabled = false,
   ...props
 }: ButtonProps) => {
   const labelText = label || "Button";
   return (
-    <Btn type="button" size={size} primary={primary} {...props}>
+    <Btn
+      type="button"
+      backgroundColor={backgroundColor}
+      size={size}
+      primary={primary}
+      disabled={disabled}
+      {...props}
+    >
       {labelText}
     </Btn>
   );

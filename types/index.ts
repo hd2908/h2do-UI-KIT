@@ -3,5 +3,6 @@ export interface GlobalColors {
   secondary: string,
   success: string,
   white: string,
-  text: string
+  text: string,
+  borderColor: string
 }

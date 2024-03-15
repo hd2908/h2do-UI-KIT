@@ -5,6 +5,7 @@ import PretendardRegular from "../fonts/Pretendard-Regular.subset.woff";
 import PretendardRegular2 from "../fonts/Pretendard-Regular.subset.woff2";
 import PretendardLight from "../fonts/Pretendard-Light.subset.woff";
 import PretendardLight2 from "../fonts/Pretendard-Light.subset.woff2";
+import Colors from "./Theme";
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
