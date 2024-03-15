@@ -6,13 +6,14 @@
     "module": "es6",
     "moduleResolution": "node",
     "baseUrl": "./",
+    "typeRoots" : ["types", "./node_modules/@types"],
     "strict": true,
     "esModuleInterop": true
   },
   "include": [
     "**/*.tsx",
     "**/*.ts",
-    "@types",
+    "types",
     "./index.tsx",
     "./src/stories/"
   ], // 컴파일에 포함할 파일
