@@ -19,10 +19,11 @@ interface InputProps {
 
 const Inp = styled.input<InputProps>`
   outline: 0;
-  font-size: 1em;
+  font-size: 1rem;
   border: none;
   padding: 0.8rem 0 0.8rem 0.6rem;
-  flex:1;
+  flex: 1;
+  color: ${Colors.text};
   ${(props) => {
     return (
       props.disabled &&
@@ -34,12 +35,16 @@ const Inp = styled.input<InputProps>`
   }};
 `;
 
+const iconStyle = {
+  fontSize: "1rem",
+  padding: "0 1em",
+  color: Colors.text,
+};
+
 const InpWrapper = styled.div<InputProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1rem;
-  color: ${Colors.text};
   border: 1px solid ${Colors.borderColor};
   border-radius: 6px;
   overflow: hidden;
@@ -48,10 +53,6 @@ const InpWrapper = styled.div<InputProps>`
     border-color: ${Colors.primary};
   }
 `;
-const iconStyle = {
-  fontSize: "1em",
-  padding: "0 1em",
-};
 
 export const Input = ({
   placeholder = "텍스트를 입력해주세요.",
@@ -67,8 +68,10 @@ export const Input = ({
       <Inp
         disabled={disabled}
         type={type}
+        icon={icon}
         placeholder={placeholder}
         value={value}
+        readonly={readonly}
         {...props}
       />
       {icon === "SearchOutlined" && type === "icon" && (

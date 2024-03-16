@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {},
-  args: { onChange: fn() },
+  args: { onChange: fn(), onKeyDown: fn(), onKeyPress: fn(), onKeyUp: fn() },
 } satisfies Meta<typeof Input>;
 
 export default meta;
