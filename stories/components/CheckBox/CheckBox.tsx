@@ -1,50 +1,54 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
 
 interface InputProps {
   disabled?: boolean;
   label?: string;
   checked?: boolean;
+  value: string;
   onChange?: () => void;
 }
-
 const HiddenCheckBox = styled.input.attrs({ type: "checkbox" })<InputProps>`
-  border: 0;
-  clip: rect(0 0 0 0);
-  clippath: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
-  white-space: nowrap;
-  width: 1px;
+  &:checked + label {
+    border-color: ${Colors.primary};
+  }
 `;
-//   outline: 0;
-//   font-size: 1rem;
-//   border: none;
-//   padding: 0.8rem 0 0.8rem 0.6rem;
-//   flex: 1;
-//   color: ${Colors.text};
-// `
+const VisibleCheckBox = styled.label<InputProps>`
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid ${Colors.borderColor};
+  cursor: pointer;
+`;
 
 const CheckWrapper = styled.div<InputProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid ${Colors.borderColor};
-  border-radius: 6px;
   overflow: hidden;
-  &:focus-within {
-    border-color: ${Colors.primary};
-  }
+  position: relative;
 `;
 
-export const CheckBox = ({ disabled, checked, ...props }: InputProps) => {
+export const CheckBox = ({
+  disabled,
+  value = "checked",
+  checked,
+  ...props
+}: InputProps) => {
   return (
-    <CheckWrapper>
-      <HiddenCheckBox disabled={disabled} checked={checked} {...props} />
+    <CheckWrapper value={value}>
+      <HiddenCheckBox
+        disabled={disabled}
+        value={value}
+        checked={checked}
+        {...props}
+        id={value}
+      />
+      <VisibleCheckBox value={value} htmlFor={value} />
     </CheckWrapper>
   );
 };

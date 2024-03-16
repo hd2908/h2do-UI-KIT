@@ -8,7 +8,7 @@ interface InputProps {
   disabled?: boolean;
   label?: string;
   value?: string;
-  readonly?: boolean;
+  readOnly?: boolean;
   type?: "text" | "icon";
   icon?: string;
   onChange?: () => void;
@@ -59,7 +59,7 @@ export const Input = ({
   disabled,
   type = "text",
   icon = "SearchOutlined",
-  readonly,
+  readOnly,
   value,
   ...props
 }: InputProps) => {
@@ -71,7 +71,7 @@ export const Input = ({
         icon={icon}
         placeholder={placeholder}
         value={value}
-        readonly={readonly}
+        readOnly={readOnly}
         {...props}
       />
       {icon === "SearchOutlined" && type === "icon" && (
