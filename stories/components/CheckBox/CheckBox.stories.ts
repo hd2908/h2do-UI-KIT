@@ -18,18 +18,34 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    value: "checked"
+    value: "primary",
+    onChange: fn()
   },
 };
-export const Disabled: Story = {
+
+export const Checked: Story = {
   args: {
     value: "checked",
+    checked: true
+  },
+};
+
+
+export const Disabled: Story = {
+  args: {
+    value: "disabled",
     disabled: true
   },
 };
-export const Icon: Story = {
+
+
+export const CheckBoxWithLabel: Story = {
   args: {
-    value: "checked"
+    value: "checkboxwithlabel",
+    label: "label",
+    onChange: fn()
   },
 };
+
+
 

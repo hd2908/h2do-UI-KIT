@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    type: 'text'
+    type: 'text', onChange: fn(), onKeyDown: fn(), onKeyPress: fn(), onKeyUp: fn()
   },
 };
 export const Disabled: Story = {
@@ -30,7 +30,8 @@ export const Disabled: Story = {
 export const Icon: Story = {
   args: {
     type: 'icon',
-    icon: 'SearchOutlined'
+    icon: 'SearchOutlined', onChange: fn(), onKeyDown: fn(), onKeyPress: fn(), onKeyUp: fn()
+
   },
 };
 

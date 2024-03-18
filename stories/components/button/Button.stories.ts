@@ -23,12 +23,14 @@ export const Primary: Story = {
   args: {
     primary: true,
     label: 'Button',
+    onClick: fn()
   },
 };
 
 export const Secondary: Story = {
   args: {
-    primary: false
+    primary: false,
+    onClick: fn()
   },
 };
 
