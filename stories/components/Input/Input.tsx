@@ -35,7 +35,7 @@ const Inp = styled.input<InputProps>`
   }};
 `;
 
-const iconStyle = {
+const IconStyle = {
   fontSize: "1rem",
   padding: "0 1em",
   color: Colors.text,
@@ -75,7 +75,7 @@ export const Input = ({
         {...props}
       />
       {icon === "SearchOutlined" && type === "icon" && (
-        <SearchOutlined style={iconStyle} />
+        <SearchOutlined style={IconStyle} />
       )}
     </InpWrapper>
   );
