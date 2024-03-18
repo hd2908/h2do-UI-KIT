@@ -1,32 +1,34 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { CheckBox } from './CheckBox';
+import { Radio } from './Radio';
 
 const meta = {
-  title: 'Example/CheckBox',
-  component: CheckBox,
+  title: 'Example/Radio',
+  component: Radio,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {},
   args: { onChange: fn() },
-} satisfies Meta<typeof CheckBox>;
+} satisfies Meta<typeof Radio>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    value: "primary",
+    name: 'primary',
+    value: ['PrimaryValue1', 'PrimaryValue2', 'PrimaryValue3'],
     onChange: fn()
   },
 };
 
 export const Checked: Story = {
   args: {
-    value: "checked",
-    defaultChecked: true,
+    name: 'checked',
+    checked: true,
+    value: ['CheckedValue1', 'CheckedValue2', 'CheckedValue3'],
     onChange: fn()
   },
 };
@@ -34,19 +36,13 @@ export const Checked: Story = {
 
 export const Disabled: Story = {
   args: {
-    value: "disabled",
+    name: 'disabled',
+    value: ['value1', 'value2', 'value3'],
     disabled: true
   },
 };
 
 
-export const CheckBoxWithLabel: Story = {
-  args: {
-    value: "checkboxwithlabel",
-    label: "label",
-    onChange: fn()
-  },
-};
 
 
 

@@ -3,15 +3,15 @@ import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
 import { CheckOutlined } from "@ant-design/icons";
 
-interface CheckboxProps {
+interface RadioProps {
   disabled?: boolean;
-  label?: string;
   checked?: boolean;
   defaultChecked?: boolean;
-  value: string;
+  name: string;
+  value: Array<string>;
   onChange?: () => void;
 }
-const HiddenCheckBox = styled.input.attrs({ type: "checkbox" })`
+const HiddenRadio = styled.input.attrs({ type: "radio" })`
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -26,16 +26,25 @@ const HiddenCheckBox = styled.input.attrs({ type: "checkbox" })`
     opacity: 0.5;
   }
 `;
-const VisibleCheckBox = styled.label`
+const VisibleRadio = styled.label`
   transition: 0.4s;
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 4px;
   border: 1px solid ${Colors.borderColor};
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   cursor: pointer;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 2px;
+    background-color: #fff;
+  }
   span {
     font-size: 1rem;
     color: #fff;
@@ -43,46 +52,43 @@ const VisibleCheckBox = styled.label`
   }
 `;
 
-const CheckWrapper = styled.div`
+const RadioWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   overflow: hidden;
   position: relative;
+  margin: 5px;
 `;
 
-const CheckLabel = styled.label`
+const RadioLabel = styled.label`
   font-size: 1rem;
   padding-left: 6px;
   cursor: pointer;
 `;
 
-export const CheckBox = ({
+export const Radio = ({
   disabled,
   checked,
-  label,
+  name,
   value,
-  defaultChecked,
   onChange,
-}: CheckboxProps) => {
+}: RadioProps) => {
   const changeHandler = (e: ChangeEvent) => {
     console.log(e);
   };
-  return (
-    <CheckWrapper>
-      <HiddenCheckBox
+  return value.map((val, i) => (
+    <RadioWrapper>
+      <HiddenRadio
         disabled={disabled}
-        value={value}
-        name={value}
-        checked={checked}
-        defaultChecked={defaultChecked}
+        value={val}
+        name={name}
+        defaultChecked={checked && i == 0 ? true : false}
         onChange={changeHandler}
-        id={value}
+        id={val}
       />
-      <VisibleCheckBox htmlFor={value}>
-        <CheckOutlined />
-      </VisibleCheckBox>
-      <CheckLabel htmlFor={value}>{label}</CheckLabel>
-    </CheckWrapper>
-  );
+      <VisibleRadio htmlFor={val}></VisibleRadio>
+      <RadioLabel htmlFor={val}>{val}</RadioLabel>
+    </RadioWrapper>
+  ));
 };
