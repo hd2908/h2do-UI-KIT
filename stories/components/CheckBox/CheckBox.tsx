@@ -22,7 +22,7 @@ const HiddenCheckBox = styled.input.attrs({ type: "checkbox" })`
   &:checked + label > span {
     visibility: visible;
   }
-  &:disabled + label {
+  &:disabled ~ label {
     opacity: 0.5;
   }
 `;

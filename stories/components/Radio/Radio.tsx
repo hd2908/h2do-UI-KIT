@@ -22,7 +22,7 @@ const HiddenRadio = styled.input.attrs({ type: "radio" })`
   &:checked + label > span {
     visibility: visible;
   }
-  &:disabled + label {
+  &:disabled ~ label {
     opacity: 0.5;
   }
 `;
