@@ -1,52 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
+import { DownOutlined } from "@ant-design/icons";
 
 interface DropdownProps {
-  placeholder?: string;
   disabled?: boolean;
+  placeholder?: string;
   value?: string;
-  readOnly?: boolean;
+  type?: "primary" | "MultiSelect" | undefined;
+  list: Array<string>;
   onChange?: () => void;
-  onKeyUp?: () => void;
-  onKeyDown?: () => void;
-  onKeyPress?: () => void;
+  onClick?: () => void;
 }
+const DropdownInnerPadding = "0.7rem";
+const DropdownWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid ${Colors.borderColor};
+  border-radius: 4px;
+  position: relative;
+  min-width: 300px;
+  .arrow {
+    font-size: 0.6rem;
+    position: absolute;
+    right: ${DropdownInnerPadding};
+    color: ${Colors.borderColor};
+    top: ${DropdownInnerPadding};
+  }
+`;
 
-const MultiLineInput = styled.div<DropdownProps>`
-  outline: 0;
-  font-size: 1rem;
-  background-color: #f9f9f9;
-  border: none;
-  padding: 0.8rem 0.6rem;
-  flex: 1;
-  color: ${Colors.text};
-  resize: none;
-  ${(props) => {
-    return (
-      props.disabled &&
-      css`
-        opacity: 0.5;
-        cursor: default;
-      `
-    );
-  }};
+const DropdownValue = styled.div`
+  padding: ${DropdownInnerPadding};
+  font-weight: bold;
+`;
+
+const DropdownItem = styled.li`
+  list-style: none;
+  padding: ${DropdownInnerPadding};
+`;
+
+const DropdownItemWrapper = styled.ul<{ isActive: boolean }>`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: ${(props) => (props.isActive ? "500px" : 0)};
+  opacity: ${(props) => (props.isActive ? 1 : 0)};
+  transition: 0.25s;
 `;
 
 export const Dropdown = ({
-  placeholder = "텍스트를 입력해주세요.",
   disabled,
-  readOnly,
   value,
+  list,
+  placeholder,
+  type,
   ...props
 }: DropdownProps) => {
+  const [isActive, setIsActive] = useState(false);
+  const DropdownHandle = () => {
+    setIsActive(!isActive);
+  };
+
   return (
-    <MultiLineInput
-      disabled={disabled}
-      placeholder={placeholder}
-      value={value}
-      readOnly={readOnly}
-      {...props}
-    />
+    <DropdownWrapper>
+      <DropdownValue onClick={DropdownHandle}>
+        {placeholder ? placeholder : list[0]}
+      </DropdownValue>
+      <DropdownItemWrapper isActive={isActive}>
+        {list && list.map((val) => <DropdownItem>{val}</DropdownItem>)}
+      </DropdownItemWrapper>
+      <DownOutlined className="arrow" />
+    </DropdownWrapper>
   );
 };

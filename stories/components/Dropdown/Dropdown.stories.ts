@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {},
-  args: { onChange: fn(), onKeyDown: fn(), onKeyPress: fn(), onKeyUp: fn() },
+  args: { onChange: fn(), onClick: fn() },
 } satisfies Meta<typeof Dropdown>;
 
 export default meta;
@@ -18,12 +18,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    onChange: fn(), onKeyDown: fn(), onKeyPress: fn(), onKeyUp: fn()
+    list: ['React', 'Angular', 'Vue', 'NodeJs', 'TypeScript'],
+    onChange: fn()
   },
 };
 export const Disabled: Story = {
   args: {
-    disabled: true
+    list: ['React', 'Angular', 'Vue', 'NodeJs', 'TypeScript'],
+    disabled: true,
+    onChange: fn()
   },
 };
 
