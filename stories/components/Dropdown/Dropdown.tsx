@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
 import { DownOutlined } from "@ant-design/icons";
@@ -6,11 +6,9 @@ import ReactDOM, { createPortal } from "react-dom";
 
 interface DropdownProps {
   disabled?: boolean;
-  placeholder?: string;
   value?: string;
   type?: "primary" | "MultiSelect" | undefined;
   list: Array<string>;
-  name: string;
   onChange?: () => void;
   onClick?: () => void;
 }
@@ -54,31 +52,41 @@ const DropdownItemWrapper = styled.ul<{ isActive: boolean }>`
   transition: 0.25s;
 `;
 
-const element = (list: Array<string>) => {
-  return (
-    list &&
-    list.map((val) => (
-      <DropdownItem className="dropdown-option">{val}</DropdownItem>
-    ))
-  );
-};
-
 export const Dropdown = ({
   disabled,
   value,
   list,
-  placeholder,
   type,
-  name = "dropdown",
   ...props
 }: DropdownProps) => {
-  //TODO: portalTarget 변경하는 방법 고안
-  const portalTarget = document.getElementById(name);
   const [isActive, setIsActive] = useState(true);
+  const [option, setOption] = useState("선택해주세요");
   const DropdownHandle = () => {
     setIsActive(!isActive);
   };
+  const portalTarget = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const initPlaceholder = () => {
+    value && setOption(value);
+  };
+  const element = (list: Array<string>) => {
+    const optionHandler = (val: string): void => {
+      setOption(val);
+    };
+
+    return (
+      list &&
+      list.map((val) => (
+        <DropdownItem
+          className="dropdown-option"
+          onMouseDown={() => optionHandler(val)}
+        >
+          {val}
+        </DropdownItem>
+      ))
+    );
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -99,17 +107,24 @@ export const Dropdown = ({
 
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
+      initPlaceholder();
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
   return (
-    <DropdownWrapper onClick={DropdownHandle}>
+    <DropdownWrapper
+      className="dropdown"
+      ref={containerRef}
+      onClick={DropdownHandle}
+    >
       <DropdownValue>
-        <span>{placeholder ? placeholder : value}</span>
+        <span>{option}</span>
         <DownOutlined className="arrow" />
       </DropdownValue>
-      <DropdownItemWrapper id={name} isActive={isActive}>
-        {portalTarget && ReactDOM.createPortal(element(list), portalTarget)}
+      <DropdownItemWrapper ref={portalTarget} isActive={isActive}>
+        {portalTarget.current &&
+          isActive &&
+          ReactDOM.createPortal(element(list), portalTarget.current)}
       </DropdownItemWrapper>
     </DropdownWrapper>
   );

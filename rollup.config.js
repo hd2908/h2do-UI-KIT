@@ -2,7 +2,7 @@ import babel from '@rollup/plugin-babel';
 import typescript from '@rollup/plugin-typescript';
 
 export default {
-  input: './index.tsx',
+  input: './stories/index.ts',
   output: {
     file: './dist/bundle.js',
     format: 'es',

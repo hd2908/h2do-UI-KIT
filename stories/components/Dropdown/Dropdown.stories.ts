@@ -18,14 +18,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    name: 'primary',
     list: ['React', 'Angular', 'Vue', 'NodeJs', 'TypeScript'],
     onChange: fn()
   },
 };
 export const Disabled: Story = {
   args: {
-    name: 'disabled',
     list: ['React', 'Angular', 'Vue', 'NodeJs', 'TypeScript'],
     disabled: true,
     onChange: fn()
