@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {},
-  args: { onChange: fn(), onClick: fn() },
+  args: { onChange: fn() },
 } satisfies Meta<typeof Dropdown>;
 
 export default meta;

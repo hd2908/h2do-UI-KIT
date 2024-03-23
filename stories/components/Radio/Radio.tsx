@@ -72,11 +72,8 @@ export const Radio = ({
   checked,
   name,
   value,
-  onChange,
+  ...props
 }: RadioProps) => {
-  const changeHandler = (e: ChangeEvent) => {
-    console.log(e);
-  };
   return value.map((val, i) => (
     <RadioWrapper>
       <HiddenRadio
@@ -84,8 +81,8 @@ export const Radio = ({
         value={val}
         name={name}
         defaultChecked={checked && i == 0 ? true : false}
-        onChange={changeHandler}
         id={val}
+        {...props}
       />
       <VisibleRadio htmlFor={val}></VisibleRadio>
       <RadioLabel htmlFor={val}>{val}</RadioLabel>

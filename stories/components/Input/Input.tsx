@@ -54,27 +54,11 @@ const InpWrapper = styled.div<InputProps>`
   }
 `;
 
-export const Input = ({
-  placeholder = "텍스트를 입력해주세요.",
-  disabled,
-  type = "text",
-  icon = "SearchOutlined",
-  readOnly,
-  value,
-  ...props
-}: InputProps) => {
+export const Input = (props: InputProps) => {
   return (
     <InpWrapper>
-      <Inp
-        disabled={disabled}
-        type={type}
-        icon={icon}
-        placeholder={placeholder}
-        value={value}
-        readOnly={readOnly}
-        {...props}
-      />
-      {icon === "SearchOutlined" && type === "icon" && (
+      <Inp {...props} />
+      {props.icon === "SearchOutlined" && props.type === "icon" && (
         <SearchOutlined style={IconStyle} />
       )}
     </InpWrapper>

@@ -4,23 +4,35 @@ import Colors from "../../assets/Styles/Theme";
 import { DownOutlined } from "@ant-design/icons";
 import ReactDOM, { createPortal } from "react-dom";
 
-interface DropdownProps {
-  disabled?: boolean;
+export interface DropdownProps {
+  disabled?: Boolean;
   value?: string;
   type?: "primary" | "MultiSelect" | undefined;
   list: Array<string>;
-  onChange?: () => void;
-  onClick?: () => void;
+  onChange?: (value: string) => void;
 }
 
 const DropdownInnerPadding = "0.7rem";
-const DropdownWrapper = styled.div`
+
+const DropdownItemWrapper = styled.ul<{ $isActive: Boolean }>`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden auto;
+  height: ${(props) => (props.$isActive ? "200px" : 0)};
+  opacity: ${(props) => (props.$isActive ? 1 : 0)};
+  transition: 0.25s;
+`;
+
+const DropdownWrapper = styled.div<{ disabled: Boolean | undefined }>`
   display: flex;
   flex-direction: column;
   border: 1px solid ${Colors.borderColor};
   border-radius: 4px;
   position: relative;
   min-width: 300px;
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
 const DropdownValue = styled.div`
@@ -42,61 +54,46 @@ const DropdownItem = styled.li`
   padding: ${DropdownInnerPadding};
 `;
 
-const DropdownItemWrapper = styled.ul<{ isActive: boolean }>`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  max-height: ${(props) => (props.isActive ? "500px" : 0)};
-  opacity: ${(props) => (props.isActive ? 1 : 0)};
-  transition: 0.25s;
-`;
-
-export const Dropdown = ({
-  disabled,
-  value,
-  list,
-  type,
-  ...props
-}: DropdownProps) => {
-  const [isActive, setIsActive] = useState(true);
+export const Dropdown = (props: DropdownProps) => {
+  const [isActive, setIsActive] = useState(false);
   const [option, setOption] = useState("선택해주세요");
-  const DropdownHandle = () => {
-    setIsActive(!isActive);
-  };
   const portalTarget = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const initPlaceholder = () => {
-    value && setOption(value);
+  const dropdownHandle = () => {
+    !props.disabled && setIsActive(!isActive);
   };
-  const element = (list: Array<string>) => {
-    const optionHandler = (val: string): void => {
-      setOption(val);
-    };
 
+  const initPlaceholder = () => {
+    props.value && setOption(props.value);
+  };
+  const DropdownOptions = (list: string[]) => {
+    const optionHandler = (value: string): void => {
+      setOption(value);
+      setIsActive(false);
+    };
     return (
       list &&
-      list.map((val) => (
+      list.map((item, index) => (
         <DropdownItem
           className="dropdown-option"
-          onMouseDown={() => optionHandler(val)}
+          data-testid={"dropdownOption" + index}
+          id={"dropdownOption" + index}
+          key={index}
+          onMouseDown={() => {
+            optionHandler(item);
+            props.onChange && props.onChange(item);
+          }}
         >
-          {val}
+          {item}
         </DropdownItem>
       ))
     );
   };
 
   useEffect(() => {
+    initPlaceholder();
     const handleOutsideClick = (event: any) => {
-      if (
-        Array.from(document.querySelectorAll(".dropdown-option")).includes(
-          event.target
-        )
-      ) {
-        return;
-      }
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
@@ -107,24 +104,24 @@ export const Dropdown = ({
 
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      initPlaceholder();
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
   return (
-    <DropdownWrapper
-      className="dropdown"
-      ref={containerRef}
-      onClick={DropdownHandle}
-    >
-      <DropdownValue>
-        <span>{option}</span>
+    <DropdownWrapper disabled={props.disabled} ref={containerRef}>
+      <DropdownValue data-testid="dropdown" onClick={dropdownHandle}>
+        <span data-testid="dropdownValue" id="dropdownValue">
+          {option}
+        </span>
         <DownOutlined className="arrow" />
       </DropdownValue>
-      <DropdownItemWrapper ref={portalTarget} isActive={isActive}>
+      <DropdownItemWrapper ref={portalTarget} $isActive={isActive}>
         {portalTarget.current &&
           isActive &&
-          ReactDOM.createPortal(element(list), portalTarget.current)}
+          ReactDOM.createPortal(
+            DropdownOptions(props.list),
+            portalTarget.current
+          )}
       </DropdownItemWrapper>
     </DropdownWrapper>
   );
