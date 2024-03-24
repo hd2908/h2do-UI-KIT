@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
 import { SearchOutlined } from "@ant-design/icons";
@@ -7,17 +7,17 @@ interface InputProps {
   placeholder?: string;
   disabled?: boolean;
   label?: string;
-  value?: string;
+  defaultValue?: string;
   readOnly?: boolean;
   type?: "text" | "icon";
   icon?: string;
-  onChange?: () => void;
-  onKeyUp?: () => void;
-  onKeyDown?: () => void;
-  onKeyPress?: () => void;
+  onChange?: (value: string) => void;
+  onKeyUp?: (value: string) => void;
+  onKeyDown?: (value: string) => void;
+  onKeyPress?: (value: string) => void;
 }
 
-const Inp = styled.input<InputProps>`
+const InputText = styled.input<InputProps>`
   outline: 0;
   font-size: 1rem;
   border: none;
@@ -41,7 +41,7 @@ const IconStyle = {
   color: Colors.text,
 };
 
-const InpWrapper = styled.div<InputProps>`
+const InputWrapper = styled.div<InputProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -54,13 +54,17 @@ const InpWrapper = styled.div<InputProps>`
   }
 `;
 
-export const Input = (props: InputProps) => {
+export const Input = ({
+  icon = "SearchOutlined",
+  placeholder = "입력해주세요.",
+  ...props
+}: InputProps) => {
   return (
-    <InpWrapper>
-      <Inp {...props} />
-      {props.icon === "SearchOutlined" && props.type === "icon" && (
-        <SearchOutlined style={IconStyle} />
+    <InputWrapper>
+      <InputText data-testid="input" placeholder={placeholder} {...props} />
+      {icon === "SearchOutlined" && props.type === "icon" && (
+        <SearchOutlined data-testid="icon" style={IconStyle} />
       )}
-    </InpWrapper>
+    </InputWrapper>
   );
 };

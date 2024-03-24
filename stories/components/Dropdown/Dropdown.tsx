@@ -78,7 +78,6 @@ export const Dropdown = (props: DropdownProps) => {
         <DropdownItem
           className="dropdown-option"
           data-testid={"dropdownOption" + index}
-          id={"dropdownOption" + index}
           key={index}
           onMouseDown={() => {
             optionHandler(item);

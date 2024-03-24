@@ -30,13 +30,13 @@ describe("Dropdown list", () => {
   });
 
   it("renders list when dropdown items is clicked", () => {
-    renderDropdown();
-    const DropdownWrapper = screen.getByTestId("dropdown");
+    const { getByTestId } = renderDropdown();
+    const DropdownWrapper = getByTestId("dropdown");
     fireEvent.click(DropdownWrapper);
-    const test = document.getElementById("dropdownOption0") as Element;
+    const test = getByTestId("dropdownOption0") as Element;
     expect(test).toBeInTheDocument();
     fireEvent.mouseDown(test);
-    const value = document.getElementById("dropdownValue");
+    const value = getByTestId("dropdownValue");
     expect(value).toHaveTextContent(test.innerHTML);
   });
 });

@@ -27,7 +27,6 @@ const getColor = (
     secondary: { color: Colors.text, background: Colors.secondary },
     backgroundColor: { color: Colors.white, background: backgroundColor },
   };
-  console.log(backgroundColor);
   return backgroundColor
     ? colors.backgroundColor
     : primary
@@ -35,7 +34,7 @@ const getColor = (
       : colors.secondary;
 };
 
-const Btn = styled.button<ButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
   ${(props) => {
     const { color, background } = getColor(
@@ -67,28 +66,15 @@ const Btn = styled.button<ButtonProps>`
   border: none;
 `;
 
-/**
- * Primary UI component for user interaction
- */
 export const Button = ({
-  primary = true,
   size = "medium",
-  backgroundColor,
   label = "Button",
-  disabled = false,
   ...props
 }: ButtonProps) => {
   const labelText = label || "Button";
   return (
-    <Btn
-      type="button"
-      backgroundColor={backgroundColor}
-      size={size}
-      primary={primary}
-      disabled={disabled}
-      {...props}
-    >
+    <StyledButton type="button" size={size} {...props}>
       {labelText}
-    </Btn>
+    </StyledButton>
   );
 };
