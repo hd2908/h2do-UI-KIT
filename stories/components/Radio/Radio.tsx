@@ -72,7 +72,7 @@ export const Radio = (props: RadioProps) => {
     <RadioWrapper key={i}>
       <HiddenRadio
         data-testid="radio"
-        id={props.name}
+        id={list}
         value={list}
         {...props}
         onChange={(e) => {
