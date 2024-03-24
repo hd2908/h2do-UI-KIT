@@ -5,7 +5,7 @@ import Colors from "../../assets/Styles/Theme";
 interface TextareaProps {
   placeholder?: string;
   disabled?: boolean;
-  value?: string;
+  defaultValue?: string;
   readOnly?: boolean;
   onChange?: () => void;
   onKeyUp?: () => void;
@@ -13,11 +13,11 @@ interface TextareaProps {
   onKeyPress?: () => void;
 }
 
-const MultiLineInput = styled.textarea<TextareaProps>`
+const MultilineInput = styled.textarea<TextareaProps>`
   outline: 0;
   font-size: 1rem;
   background-color: #f9f9f9;
-  border:none;
+  border: none;
   padding: 0.8rem 0.6rem;
   flex: 1;
   color: ${Colors.text};
@@ -35,17 +35,12 @@ const MultiLineInput = styled.textarea<TextareaProps>`
 
 export const Textarea = ({
   placeholder = "텍스트를 입력해주세요.",
-  disabled,
-  readOnly,
-  value,
   ...props
 }: TextareaProps) => {
   return (
-    <MultiLineInput
-      disabled={disabled}
+    <MultilineInput
+      data-testid="textarea"
       placeholder={placeholder}
-      value={value}
-      readOnly={readOnly}
       {...props}
     />
   );
