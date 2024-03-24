@@ -6,10 +6,10 @@ import { CheckOutlined } from "@ant-design/icons";
 interface CheckboxProps {
   disabled?: boolean;
   label?: string;
+  name: string;
   checked?: boolean;
   defaultChecked?: boolean;
-  value: string;
-  onChange?: () => void;
+  onChange?: (element: Element) => void;
 }
 const HiddenCheckBox = styled.input.attrs({ type: "checkbox" })`
   visibility: hidden;
@@ -57,32 +57,18 @@ const CheckLabel = styled.label`
   cursor: pointer;
 `;
 
-export const CheckBox = ({
-  disabled,
-  checked,
-  label,
-  value,
-  defaultChecked,
-  onChange,
-}: CheckboxProps) => {
-  const changeHandler = (e: ChangeEvent) => {
-    console.log(e);
-  };
+export const CheckBox = (props: CheckboxProps) => {
   return (
     <CheckWrapper>
       <HiddenCheckBox
-        disabled={disabled}
-        value={value}
-        name={value}
-        checked={checked}
-        defaultChecked={defaultChecked}
-        onChange={changeHandler}
-        id={value}
+        data-testid="checkbox"
+        {...props}
+        onChange={(e) => props.onChange && props.onChange(e.target)}
       />
-      <VisibleCheckBox htmlFor={value}>
+      <VisibleCheckBox htmlFor={props.name}>
         <CheckOutlined />
       </VisibleCheckBox>
-      <CheckLabel htmlFor={value}>{label}</CheckLabel>
+      <CheckLabel data-testid="label" htmlFor={props.name}>{props.label}</CheckLabel>
     </CheckWrapper>
   );
 };

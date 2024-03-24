@@ -14,8 +14,8 @@ describe("Dropdown", () => {
     expect(container).toHaveTextContent("선택해주세요");
   });
   it("renders with selected value", () => {
-    const { container } = renderDropdown({ value: "안녕하세요" });
-    expect(container).toHaveTextContent("안녕하세요");
+    const { container } = renderDropdown({ value: "is DefaultValue" });
+    expect(container).toHaveTextContent("is DefaultValue");
   });
 });
 

@@ -9,14 +9,14 @@ const renderDropdown = (props = {}) => {
 describe("Input has render", () => {
   it("with placeholder", () => {
     renderDropdown({
-      placeholder: "안녕하세요",
+      placeholder: "default placeholder",
     });
-    const placeholder = screen.getByPlaceholderText("안녕하세요");
+    const placeholder = screen.getByPlaceholderText("default placeholder");
     expect(placeholder).toBeInTheDocument();
   });
   it("with defaultValue", () => {
-    renderDropdown({ defaultValue: "안녕하세요" });
-    const value = screen.getByDisplayValue("안녕하세요");
+    renderDropdown({ defaultValue: "default value" });
+    const value = screen.getByDisplayValue("default value");
     expect(value).toBeInTheDocument();
   });
   it("with icon", () => {
@@ -30,22 +30,22 @@ describe("Input has change", () => {
   it("changes the value", () => {
     const { getByTestId } = renderDropdown({ type: "icon" });
     const inputElement = getByTestId("input");
-    fireEvent.change(inputElement, { target: { value: "새로운 값" } });
+    fireEvent.change(inputElement, { target: { value: "new value" } });
   });
   it("changes the value", () => {
     const { getByTestId } = renderDropdown({ type: "icon" });
     const inputElement = getByTestId("input");
-    fireEvent.keyUp(inputElement, { target: { value: "새로운 값" } });
+    fireEvent.keyUp(inputElement, { target: { value: "new value" } });
   });
 
   it("changes the value", () => {
     const { getByTestId } = renderDropdown({ type: "icon" });
     const inputElement = getByTestId("input");
-    fireEvent.keyDown(inputElement, { target: { value: "새로운 값" } });
+    fireEvent.keyDown(inputElement, { target: { value: "new value" } });
   });
   it("changes the value", () => {
     const { getByTestId } = renderDropdown({ type: "icon" });
     const inputElement = getByTestId("input");
-    fireEvent.keyPress(inputElement, { target: { value: "새로운 값" } });
+    fireEvent.keyPress(inputElement, { target: { value: "new value" } });
   });
 });

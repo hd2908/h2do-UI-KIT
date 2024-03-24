@@ -7,7 +7,7 @@ interface ButtonProps {
   size?: "small" | "medium" | "large";
   label?: string;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (event: Event) => void;
 }
 const getSize = (size: ButtonProps["size"]) => {
   const sizes = {
@@ -71,10 +71,9 @@ export const Button = ({
   label = "Button",
   ...props
 }: ButtonProps) => {
-  const labelText = label || "Button";
   return (
-    <StyledButton type="button" size={size} {...props}>
-      {labelText}
+    <StyledButton type="button" data-testid="button" size={size} {...props}>
+      {label}
     </StyledButton>
   );
 };
