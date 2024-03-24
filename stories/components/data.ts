@@ -1,2 +1,1 @@
-import { DropdownProps } from "./Dropdown/Dropdown"
-export const dropdownList: string[] = ["angular", "react", "typescript", "nodejs", "jQuery", "RXJS"];
+export const sampleList: string[] = ["angular", "react", "typescript", "nodejs", "jQuery", "RXJS"];

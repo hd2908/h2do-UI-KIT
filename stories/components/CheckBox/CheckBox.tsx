@@ -61,6 +61,7 @@ export const CheckBox = (props: CheckboxProps) => {
   return (
     <CheckWrapper>
       <HiddenCheckBox
+        id={props.name}
         data-testid="checkbox"
         {...props}
         onChange={(e) => props.onChange && props.onChange(e.target)}
@@ -68,7 +69,9 @@ export const CheckBox = (props: CheckboxProps) => {
       <VisibleCheckBox htmlFor={props.name}>
         <CheckOutlined />
       </VisibleCheckBox>
-      <CheckLabel data-testid="label" htmlFor={props.name}>{props.label}</CheckLabel>
+      <CheckLabel data-testid="label" htmlFor={props.name}>
+        {props.label}
+      </CheckLabel>
     </CheckWrapper>
   );
 };

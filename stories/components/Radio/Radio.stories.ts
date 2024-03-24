@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     name: 'primary',
-    value: ['PrimaryValue1', 'PrimaryValue2', 'PrimaryValue3'],
+    lists: ['PrimaryValue1', 'PrimaryValue2', 'PrimaryValue3'],
     onChange: fn()
   },
 };
@@ -28,7 +28,7 @@ export const Checked: Story = {
   args: {
     name: 'checked',
     checked: true,
-    value: ['CheckedValue1', 'CheckedValue2', 'CheckedValue3'],
+    lists: ['CheckedValue1', 'CheckedValue2', 'CheckedValue3'],
     onChange: fn()
   },
 };
@@ -37,7 +37,7 @@ export const Checked: Story = {
 export const Disabled: Story = {
   args: {
     name: 'disabled',
-    value: ['value1', 'value2', 'value3'],
+    lists: ['value1', 'value2', 'value3'],
     disabled: true
   },
 };

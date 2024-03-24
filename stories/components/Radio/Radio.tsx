@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled, { css } from "styled-components";
 import Colors from "../../assets/Styles/Theme";
 import { CheckOutlined } from "@ant-design/icons";
@@ -7,9 +7,9 @@ interface RadioProps {
   disabled?: boolean;
   checked?: boolean;
   defaultChecked?: boolean;
+  lists: string[];
   name: string;
-  value: Array<string>;
-  onChange?: () => void;
+  onChange?: (value: string) => void;
 }
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
   visibility: hidden;
@@ -67,25 +67,22 @@ const RadioLabel = styled.label`
   cursor: pointer;
 `;
 
-export const Radio = ({
-  disabled,
-  checked,
-  name,
-  value,
-  ...props
-}: RadioProps) => {
-  return value.map((val, i) => (
-    <RadioWrapper>
+export const Radio = (props: RadioProps) => {
+  return props.lists.map((list, i) => (
+    <RadioWrapper key={i}>
       <HiddenRadio
-        disabled={disabled}
-        value={val}
-        name={name}
-        defaultChecked={checked && i == 0 ? true : false}
-        id={val}
+        data-testid="radio"
+        id={props.name}
+        value={list}
         {...props}
+        onChange={(e) => {
+          props.onChange && props.onChange(e.target.value);
+        }}
       />
-      <VisibleRadio htmlFor={val}></VisibleRadio>
-      <RadioLabel htmlFor={val}>{val}</RadioLabel>
+      <VisibleRadio htmlFor={list}></VisibleRadio>
+      <RadioLabel data-testid="label" htmlFor={list}>
+        {list}
+      </RadioLabel>
     </RadioWrapper>
   ));
 };

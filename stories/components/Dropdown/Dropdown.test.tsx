@@ -2,10 +2,10 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import { Dropdown } from "./Dropdown";
-import { dropdownList } from "../data";
+import { sampleList } from "../data";
 
 const renderDropdown = (props = {}) => {
-  const defaultProps = { list: dropdownList };
+  const defaultProps = { list: sampleList };
   return render(<Dropdown {...defaultProps} {...props} />);
 };
 describe("Dropdown", () => {
@@ -24,7 +24,7 @@ describe("Dropdown list", () => {
     renderDropdown();
     const dropdownWrapper = screen.getByTestId("dropdown");
     fireEvent.click(dropdownWrapper);
-    dropdownList.forEach((item, index) => {
+    sampleList.forEach((item, index) => {
       expect(screen.getByTestId("dropdownOption" + index)).toBeInTheDocument();
     });
   });
