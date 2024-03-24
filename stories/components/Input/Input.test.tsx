@@ -27,25 +27,20 @@ describe("Input has render", () => {
 });
 
 describe("Input has change", () => {
+  const { getByTestId } = renderDropdown({ type: "icon" });
+  const inputElement = getByTestId("input");
+  
   it("changes the value", () => {
-    const { getByTestId } = renderDropdown({ type: "icon" });
-    const inputElement = getByTestId("input");
     fireEvent.change(inputElement, { target: { value: "new value" } });
   });
   it("changes the value", () => {
-    const { getByTestId } = renderDropdown({ type: "icon" });
-    const inputElement = getByTestId("input");
     fireEvent.keyUp(inputElement, { target: { value: "new value" } });
   });
 
   it("changes the value", () => {
-    const { getByTestId } = renderDropdown({ type: "icon" });
-    const inputElement = getByTestId("input");
     fireEvent.keyDown(inputElement, { target: { value: "new value" } });
   });
   it("changes the value", () => {
-    const { getByTestId } = renderDropdown({ type: "icon" });
-    const inputElement = getByTestId("input");
     fireEvent.keyPress(inputElement, { target: { value: "new value" } });
   });
 });
