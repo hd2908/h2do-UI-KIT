@@ -2,15 +2,13 @@
 
 ## Getting Started
 
-h2do-UX-KIT의 샘플 및 docs 확인
-
+h2do-UX-KIT의 모듈 및 docs 
 ```
-$ npm install
+$ npm install h2do-react
 $ npm run stroybook
 ```
 
-h2do-UX-KIT의 테스트 확인
-
+h2do-UX-KIT의 테스트 
 ```
 $ npm test
 ```
